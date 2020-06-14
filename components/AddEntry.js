@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {View, TouchableOpacity, Text} from 'react-native'
 import {getMetricMetaInfo, timeToString} from '../utils/helpers'
-import Slider from './Slider'
+import CustomSlider from './CustomSlider'
 import Stepper from './Stepper'
 import DateHeader from './DateHeader'
 
@@ -75,24 +75,24 @@ export default class AddEntry extends Component {
                 <DateHeader date={new Date().toLocaleDateString()}/>
                 {
                     Object.keys(metaInfo).map((key) => {
-                        const metric = metaInfo[key]
-                        const value = this.state[key]
+                        const {getIcon, type, ...rest } = metaInfo[key]
+                        let value = this.state[key]
                         
                         return (
                             <View key={key}>
-                                {metric.getIcon()}
+                                {getIcon()}
                                 {
-                                    metric.type === 'slider'
-                                    ?   <Slider
+                                    type === 'slider'
+                                    ?   <CustomSlider
                                             value = {value}
-                                            onChange = {(value) => this.slide(key, value)}
-                                            {...metric}
+                                            onChange = {(val) => this.slide(key, val)}
+                                            {...rest}
                                         />
                                     :   <Stepper
                                             value = {value}
                                             onIncrement = {() => this.increment(key)}
                                             onDecrement = {() => this.decrement(key)}
-                                            {...metric}
+                                            {...rest}
                                         />
                                 }
                             </View>
