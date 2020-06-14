@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, TouchableOpacity, Text} from 'react-native'
 import {getMetricMetaInfo, timeToString} from '../utils/helpers'
 import CustomSlider from './CustomSlider'
-import Stepper from './Stepper'
+import CustomStepper from './CustomStepper'
 import DateHeader from './DateHeader'
 
 function SubmitBtn({onPress}){
@@ -38,9 +38,9 @@ export default class AddEntry extends Component {
     }
 
     increment = (metric) => {
-        const {max, step} = getMetricMetaInfo()
+        const {max, step} = getMetricMetaInfo(metric)
 
-        this.getState((state) => {
+        this.setState((state) => {
             const count = state[metric] + step
 
             return {
@@ -51,8 +51,8 @@ export default class AddEntry extends Component {
     }
 
     decrement = (metric) => {
-        this.getState((state) => {
-            const count = state[metric] + getMetricMetaInfo(metric).step
+        this.setState((state) => {
+            const count = state[metric] - getMetricMetaInfo(metric).step
 
             return {
                 ...state,
@@ -76,7 +76,7 @@ export default class AddEntry extends Component {
                 {
                     Object.keys(metaInfo).map((key) => {
                         const {getIcon, type, ...rest } = metaInfo[key]
-                        let value = this.state[key]
+                        const value = this.state[key]
                         
                         return (
                             <View key={key}>
@@ -88,7 +88,7 @@ export default class AddEntry extends Component {
                                             onChange = {(val) => this.slide(key, val)}
                                             {...rest}
                                         />
-                                    :   <Stepper
+                                    :   <CustomStepper
                                             value = {value}
                                             onIncrement = {() => this.increment(key)}
                                             onDecrement = {() => this.decrement(key)}
