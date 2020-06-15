@@ -4,6 +4,8 @@ import {getMetricMetaInfo, timeToString} from '../utils/helpers'
 import CustomSlider from './CustomSlider'
 import CustomStepper from './CustomStepper'
 import DateHeader from './DateHeader'
+import { Entypo } from '@expo/vector-icons'
+import TextButton from './TextButton'
 
 function SubmitBtn({onPress}){
     return (
@@ -67,8 +69,24 @@ export default class AddEntry extends Component {
         }))
     }
 
+    reset = () => {
+        const key = timeToString()
+    }
+
     render(){
         const metaInfo = getMetricMetaInfo()
+
+        if(true){
+            return(
+                <View>
+                    <Entypo name="emoji-happy" size={100} color="black" />
+                    <Text>You have already logged information for today.</Text>
+                    <TextButton onPress={this.reset}>
+                        Reset
+                    </TextButton>
+                </View>
+            )
+        }
 
         return (
             <View>
