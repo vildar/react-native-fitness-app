@@ -6,6 +6,7 @@ import CustomStepper from './CustomStepper'
 import DateHeader from './DateHeader'
 import { Entypo } from '@expo/vector-icons'
 import TextButton from './TextButton'
+import {submitEntry, removeEntry} from '../utils/api'
 
 function SubmitBtn({onPress}){
     return (
@@ -37,6 +38,8 @@ export default class AddEntry extends Component {
             sleep: 0,
             eat: 0,
         }))
+
+        submitEntry({ key, entry })
     }
 
     increment = (metric) => {
@@ -71,6 +74,8 @@ export default class AddEntry extends Component {
 
     reset = () => {
         const key = timeToString()
+
+        removeEntry(key)
     }
 
     render(){
