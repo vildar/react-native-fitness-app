@@ -1,10 +1,11 @@
 import React from 'react'
-import {Text, View} from 'react-native'
+import {Text} from 'react-native'
+import {purple} from '../utils/colors'
 
 export default function DateHeader({date}){
     return (
-        <View>
-            <Text>{date}</Text>
-        </View>
+        <Text style={{color: purple, fontSize: 25}}>
+            {date}
+        </Text>
     )
 }
